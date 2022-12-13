@@ -1,6 +1,6 @@
 package shape;
 
-public class Circle extends Shape{
+public class Circle extends Shape implements Resizeable {
     private double radius = 1.0;
 
     public Circle() {
@@ -23,17 +23,22 @@ public class Circle extends Shape{
         this.radius = radius;
     }
 
-    public double getArea(){
+    public double getArea() {
         return 2 * Math.PI * radius;
     }
 
-    public double getPerimeter(){
+    public double getPerimeter() {
         return radius * radius * Math.PI;
     }
 
     @Override
     public String toString() {
-        return "A Cirlce with radius = " + radius + ", which is a subclass of " + super.toString();
+        return "A Cirlce with radius = " + radius + " area = "+ getArea() +", perimeter = " +  getPerimeter() + ", which is a subclass of " + super.toString();
+    }
+
+    @Override
+    public void resize(double percent) {
+        radius = radius + radius * (percent / 100);
     }
 }
 

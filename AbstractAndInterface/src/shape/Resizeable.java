@@ -1,2 +1,5 @@
-package shape;public interface Resizeable {
+package shape;
+
+public interface Resizeable {
+    void resize(double percent);
 }
