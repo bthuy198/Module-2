@@ -18,17 +18,21 @@ public class Rectangle extends Shape implements Resizeable{
         this.height = height;
     }
 
-    public double getArea() {
+    public double getPerimeter() {
         return (width + height) * 2;
+    }
+    public double getArea(){
+        return width * height;
     }
 
     @Override
     public String toString() {
-        return "A rectangle has area = " + getArea();
+        return "A rectangle has area = " + getArea() + ", perimeter = "+getPerimeter();
     }
 
     @Override
     public void resize(double percent) {
         width = width + width * (percent / 100);
+        height = height + height * (percent / 100);
     }
 }
