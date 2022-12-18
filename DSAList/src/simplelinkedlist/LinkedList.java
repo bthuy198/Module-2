@@ -61,13 +61,13 @@ public class LinkedList<E> {
             numNodes++;
         }
     }
-    public Object get(int index){
-        Node currentNode = head;
-        while(currentNode.next != null){
-            if()
-        }
-        return null;
-    }
+//    public Object get(int index){
+//        Node currentNode = head;
+//        while(currentNode.next != null){
+//            if()
+//        }
+//        return null;
+//    }
     public void printList() {
         if (head == null) {
             System.out.println("List is empty");
