@@ -1,6 +1,6 @@
 package users;
 
-import products.Product;
+import model.Customer;
 
 import java.util.ArrayList;
 import java.util.Date;
