@@ -1,21 +1,19 @@
-package users;
+package view;
 
 import model.Customer;
+import model.EGender;
+import service.CustomerService;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public class CustomerList {
-    private List<Customer> customerList;
+public class CustomerView {
+    private CustomerService customerService;
     Scanner scn = new Scanner(System.in);
 
-    public CustomerList() {
-        customerList = new ArrayList<>();
-        customerList.add(new Customer(456, "John", 20, "Huế", new Date()));
-        customerList.add(new Customer(457, "Levis", 30, "Huế", new Date()));
-        customerList.add(new Customer(458, "Tom", 25, "ĐN", new Date()));
+    public CustomerView() {
+        customerService = new CustomerService();
     }
 
     public void renderMenu() {
@@ -35,7 +33,7 @@ public class CustomerList {
             int actionMenuProduct = Integer.parseInt(scn.nextLine());
             switch (actionMenuProduct) {
                 case 1:
-                    showCustomerList(customerList);
+                    showCustomerList(customerService.getAll());
                     break;
                 case 2:
                     addNewCustomer();
@@ -69,66 +67,45 @@ public class CustomerList {
         } while (checkAction);
     }
 
-    public Customer findById(long id){
-        for (int i = 0; i < customerList.size(); i++) {
-            if (customerList.get(i).getId() == id) {
-                return customerList.get(i);
-            }
-        }
-        return null;
+    public Customer findById(long id) {
+        return customerService.findById(id);
     }
-    public void searchById(long id){
+
+    public void searchById(long id) {
         Customer searchResult = findById(id);
-        if(searchResult == null){
+        if (searchResult == null) {
             System.out.println("Not found");
-        } else{
+        } else {
             showCustomer(searchResult);
         }
     }
-    public void searchByName(String name){
-        List<Customer> searchList = new ArrayList<>();
-        for(int i = 0; i < customerList.size(); i++){
-            if(customerList.get(i).getName().toLowerCase().equals(name)){
-                searchList.add(customerList.get(i));
-            }
-        }
-        if(searchList.size() == 0){
-            System.out.println("Not found");
-        } else{
-            showCustomerList(searchList);
-        }
+
+    public void searchByName(String name) {
+        showCustomerList(customerService.searchByName(name));
     }
+
     public void deleteCustomer() {
         System.out.println("Enter ID's customer you want to delete");
         long id = Long.parseLong(scn.nextLine());
-        for (int i = 0; i < customerList.size(); i++) {
-            if (customerList.get(i).getId() == id) {
-                customerList.remove(i);
-                System.out.println("------Done------");
-                break;
-            }
-        }
-        showCustomerList(customerList);
+        customerService.deleteById(id);
+        showCustomerList(customerService.getAll());
     }
 
     public void updateCustomerByName() {
         System.out.println("Name's customer you want to edit");
         String name = scn.nextLine().trim().toLowerCase();
-        for (int i = 0; i < customerList.size(); i++) {
-            if (customerList.get(i).getName().toLowerCase().equals(name)) {
-                editCustomer(customerList.get(i));
-            } else break;
+        Customer editCustomer = customerService.findByName(name);
+        if (editCustomer != null) {
+            editCustomer(editCustomer);
+        } else {
+            System.out.println("Not found this name");
         }
     }
 
     public void updateCustomerById() {
         System.out.println("ID's customer you want to edit");
         long idCustomer = Long.parseLong(scn.nextLine());
-        for (int i = 0; i < customerList.size(); i++) {
-            if (customerList.get(i).getId() == idCustomer) {
-                editCustomer(customerList.get(i));
-            } else break;
-        }
+        editCustomer(customerService.findById(idCustomer));
     }
 
     public void addNewCustomer() {
@@ -137,10 +114,17 @@ public class CustomerList {
         String name = scn.nextLine();
         System.out.println("Enter customer's age");
         int age = Integer.parseInt(scn.nextLine());
+        System.out.println("Enter gender");
+        for (EGender e : EGender.values()) {
+            System.out.printf("%s enter %s ", e.getValue(), e.getId());
+            System.out.println();
+        }
+        int gender = Integer.parseInt(scn.nextLine());
+        EGender eGender = EGender.toGender(gender);
         System.out.println("Enter customer's address");
         String address = scn.nextLine();
         Date createDate = new Date();
-        Customer newCustomer = new Customer(id, name, age, address, createDate);
+        Customer newCustomer = new Customer(id, name, age, eGender, address, createDate);
         System.out.println("Please check new customer's information");
         showCustomer(newCustomer);
         System.out.println("Do you want to save? Y/N");
@@ -148,7 +132,7 @@ public class CustomerList {
         choice = choice.trim().toUpperCase();
         switch (choice) {
             case "Y":
-                customerList.add(newCustomer);
+                customerService.add(newCustomer);
                 System.out.println("---------Done---------");
                 break;
             case "N":
@@ -156,6 +140,7 @@ public class CustomerList {
                 int edit = Integer.parseInt(scn.nextLine());
                 if (edit == 1) {
                     editCustomer(newCustomer);
+                    customerService.add(newCustomer);
                 } else break;
             default:
                 break;
@@ -211,17 +196,19 @@ public class CustomerList {
     }
 
     public void showCustomer(Customer customer) {
+        System.out.printf("%5s|%15s|%5s|%8s|%10s|%-10s", "ID", "Customer's name", "Age", "Gender", "Address", "Create date").println();
         System.out.println(customer.viewCustomer());
     }
 
     public void showCustomerList(List<Customer> customerList) {
+        System.out.printf("%5s|%15s|%5s|%8s|%10s|%-10s", "ID", "Customer's name", "Age", "Gender", "Address", "Create date").println();
         for (Customer customer : customerList) {
             System.out.println(customer.viewCustomer());
         }
     }
 
     public static void main(String[] args) {
-        CustomerList customerList = new CustomerList();
+        CustomerView customerList = new CustomerView();
         customerList.launcher();
     }
 }

@@ -1,23 +1,35 @@
-package users;
+package model;
+
+import repository.IModel;
 
 import java.util.Date;
 
-public class Customer {
+public class Customer implements IModel<Customer> {
     private long id;
     private String name;
     private int age;
+    private EGender gender;
     private String address;
     private Date create;
 
     public Customer() {
     }
 
-    public Customer(long id, String name, int age, String address, Date create) {
+    public Customer(long id, String name, int age, EGender gender, String address, Date create) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.address = address;
+        this.gender = gender;
         this.create = create;
+    }
+
+    public EGender getGender() {
+        return gender;
+    }
+
+    public void setGender(EGender gender) {
+        this.gender = gender;
     }
 
     public long getId() {
@@ -59,7 +71,8 @@ public class Customer {
     public void setCreate(Date create) {
         this.create = create;
     }
-    public String viewCustomer(){
-        return String.format("%5s|%15s|%5s|%10s|%-10s", id, name, age, address, create);
+
+    public String viewCustomer() {
+        return String.format("%5s|%15s|%5s|%8s|%10s|%-10s", id, name, age, gender, address, create);
     }
 }
