@@ -1,6 +1,6 @@
 package shape;
 
-public class Square extends Rectangle {
+public class Square extends Rectangle implements Colorable {
     public Square() {
     }
 
@@ -30,11 +30,16 @@ public class Square extends Rectangle {
     public void setHeight(double height) {
         setSide(height);
     }
+    @Override
+    public void howToColor() {
+        System.out.println("Color all four sides");
+    }
 
     @Override
     public String toString() {
         return "A Square with side = " + getSide() + ", which is a subclass of " + super.toString();
     }
+
 }
  class SquareTest{
      public static void main(String[] args) {
