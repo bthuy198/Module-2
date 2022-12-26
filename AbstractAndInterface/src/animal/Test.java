@@ -12,6 +12,7 @@ public class Test {
                 System.out.println(edibler.howToEat());
             }
         }
+        System.out.println("--------------");
         System.out.println(animals[0] instanceof Tiger);
         System.out.println(animals[0] instanceof Animal);
     }

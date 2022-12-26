@@ -12,10 +12,11 @@ public class TestResize {
         System.out.println(rect2.toString());
 
         //resize
-        circle1.resize(10.0);
-        rect.resize(10.0);
+        double percent = 20.0;
+        circle1.resize(percent);
+        rect.resize(percent);
 
-        System.out.println("After resize +10%");
+        System.out.println("After resize " +  percent);
         System.out.println(circle1.toString());
         System.out.println(rect.toString());
         System.out.println(rect2.toString());
