@@ -1,6 +1,5 @@
 package simplelinkedlist;
 
-import linkedlist.MyLinkedList;
 
 public class LinkedList<E> {
     private Node head;
@@ -61,13 +60,26 @@ public class LinkedList<E> {
             numNodes++;
         }
     }
-//    public Object get(int index){
-//        Node currentNode = head;
-//        while(currentNode.next != null){
-//            if()
+//    public E getNode(int position) {
+//        Object data = null;
+//        Node getNode = null;
+//        if (head == null || position < 1 || position > numNodes) {
+//            return null;
+//        } else {
+//            if (position == 1) {
+//                getFirst();
+//            }
+//            int count = 1;
+//            Node currentNode = head;
+//            while (count != position) {
+//                currentNode = currentNode.next;
+//                count++;
+//            }
+//            data = currentNode.getData();
 //        }
-//        return null;
+//        return (E) data;
 //    }
+
     public void printList() {
         if (head == null) {
             System.out.println("List is empty");

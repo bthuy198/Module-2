@@ -109,42 +109,7 @@ public class CustomerView {
     }
 
     public void addNewCustomer() {
-        long id = System.currentTimeMillis() % 1000;
-        System.out.println("Enter customer's name");
-        String name = scn.nextLine();
-        System.out.println("Enter customer's age");
-        int age = Integer.parseInt(scn.nextLine());
-        System.out.println("Enter gender");
-        for (EGender e : EGender.values()) {
-            System.out.printf("%s enter %s ", e.getValue(), e.getId());
-            System.out.println();
-        }
-        int gender = Integer.parseInt(scn.nextLine());
-        EGender eGender = EGender.toGender(gender);
-        System.out.println("Enter customer's address");
-        String address = scn.nextLine();
-        Date createDate = new Date();
-        Customer newCustomer = new Customer(id, name, age, eGender, address, createDate);
-        System.out.println("Please check new customer's information");
-        showCustomer(newCustomer);
-        System.out.println("Do you want to save? Y/N");
-        String choice = scn.nextLine();
-        choice = choice.trim().toUpperCase();
-        switch (choice) {
-            case "Y":
-                customerService.add(newCustomer);
-                System.out.println("---------Done---------");
-                break;
-            case "N":
-                System.out.println("Edit(1) or cancel(2)? ");
-                int edit = Integer.parseInt(scn.nextLine());
-                if (edit == 1) {
-                    editCustomer(newCustomer);
-                    customerService.add(newCustomer);
-                } else break;
-            default:
-                break;
-        }
+        customerService.add(customer);
     }
 
     public void editCustomer(Customer customer) {

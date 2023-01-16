@@ -1,24 +1,15 @@
 package model;
 
 public enum EGender {
-    MALE("Male", 1),
-    FEMALE("Female", 2),
-    OTHER("Other", 3);
+    MALE(1),
+    FEMALE(2),
+    OTHER(3);
 
     private String value;
     private int id;
 
-    EGender(String value, int id) {
-        this.value = value;
+    EGender(int id) {
         this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
     public int getId() {
@@ -32,6 +23,14 @@ public enum EGender {
     public static EGender toGender(int id) {
         for (EGender gender : values()) {
             if (gender.id == id) {
+                return gender;
+            }
+        }
+        return null;
+    }
+    public static EGender getEGenderByName(String name) {
+        for (EGender gender : values()) {
+            if (gender.toString().equals(name)) {
                 return gender;
             }
         }

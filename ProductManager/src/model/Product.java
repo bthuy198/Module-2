@@ -5,6 +5,9 @@ import repository.ISearch;
 
 import java.util.Date;
 
+import static utils.DateUtils.convertDateToString;
+import static utils.DateUtils.parseDate;
+
 public class Product implements IModel<Product>, ISearch<Product> {
     protected long id;
     protected String productName;
@@ -22,6 +25,7 @@ public class Product implements IModel<Product>, ISearch<Product> {
         this.quantity = quantity;
         this.createDate = createDate;
     }
+
     public long getId() {
         return id;
     }
@@ -62,13 +66,32 @@ public class Product implements IModel<Product>, ISearch<Product> {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
-    public void updateProduct(Product product){
+
+    public void updateProduct(Product product) {
         this.setProductName(product.getProductName());
         this.setPrice(product.getPrice());
         this.setQuantity(product.getQuantity());
         this.setCreateDate(product.getCreateDate());
     }
+
+    public Product parseData(String line) {
+        String[] productInfo = line.split(",");
+        long idProduct = Long.parseLong(productInfo[0]);
+        //long idProduct, String productName, double price, int quantity, Date createDate
+        double price = Double.parseDouble(productInfo[2]);
+        int quantity = Integer.parseInt(productInfo[3]);
+        Date createDate = parseDate(productInfo[4]);
+        Product product = new Product(idProduct, productInfo[1], price, quantity, createDate);
+        return product;
+    }
+
     public String viewProduct() {
         return String.format("%5s|%15s|%10s|%10s|%-10s", id, productName, price, quantity, createDate);
+    }
+
+    @Override
+    public String toString() {
+        String strDate = convertDateToString(createDate);
+        return String.format("%s,%s,%s,%s,%s", id, productName, price, quantity, strDate);
     }
 }

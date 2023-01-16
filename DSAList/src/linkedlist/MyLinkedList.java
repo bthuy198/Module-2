@@ -154,8 +154,9 @@ public class MyLinkedList<E> {
     }
 
     public boolean removeObj(Object data) {
-
-        return false;
+        boolean removeObj = false;
+        for()
+        return removeObj;
     }
 
     public E getFirst() {

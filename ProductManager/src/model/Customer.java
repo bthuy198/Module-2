@@ -4,6 +4,9 @@ import repository.IModel;
 
 import java.util.Date;
 
+import static utils.DateUtils.convertDateToString;
+import static utils.DateUtils.parseDate;
+
 public class Customer implements IModel<Customer> {
     private long id;
     private String name;
@@ -34,6 +37,18 @@ public class Customer implements IModel<Customer> {
 
     public long getId() {
         return id;
+    }
+
+    @Override
+    public Customer parseData(String line) {
+        //long id, String name, int age, EGender gender, String address, Date create
+        String[] customerInfo = line.split(",");
+        long id = Long.parseLong(customerInfo[0]);
+        int age = Integer.parseInt(customerInfo[2]);
+        EGender gender = EGender.getEGenderByName(customerInfo[3]);
+        Date createDate = parseDate(customerInfo[5]);
+        Customer customer = new Customer(id, customerInfo[1], age, gender, customerInfo[4], createDate);
+        return customer;
     }
 
     public void setId(long id) {
@@ -74,5 +89,11 @@ public class Customer implements IModel<Customer> {
 
     public String viewCustomer() {
         return String.format("%5s|%15s|%5s|%8s|%10s|%-10s", id, name, age, gender, address, create);
+    }
+
+    @Override
+    public String toString() {
+        String strDate = convertDateToString(create);
+        return String.format("%s,%s,%s,%s,%s,%s", id, name, age, gender, address, strDate);
     }
 }

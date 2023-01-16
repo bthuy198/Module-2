@@ -1,11 +1,8 @@
 package service;
 
-import model.Customer;
 import model.Product;
-import repository.ProductRepository;
+import repository.file.ProductRepository;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ProductService {

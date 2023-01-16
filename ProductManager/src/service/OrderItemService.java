@@ -1,10 +1,8 @@
 package service;
 
 import model.OrderItem;
-import repository.IModel;
-import repository.OrderDetailRepository;
+import repository.memory.OrderDetailRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderItemService {

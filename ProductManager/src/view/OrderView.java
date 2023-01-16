@@ -1,7 +1,7 @@
 package view;
 
 import model.*;
-import repository.ProductRepository;
+import repository.memory.ProductRepository;
 import service.OrderItemService;
 import service.OrderService;
 import service.ProductService;

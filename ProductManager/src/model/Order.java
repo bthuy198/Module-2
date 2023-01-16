@@ -42,6 +42,11 @@ public class Order implements IModel<Order>, ISearch<Order> {
     }
 
     @Override
+    public Order parseData(String line) {
+        return null;
+    }
+
+    @Override
     public String getName() {
         return null;
     }
